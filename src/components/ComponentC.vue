@@ -1,24 +1,33 @@
 <template>
   <div>
-    <h2>Component C</h2>
+    <h2>Component C | fixMixin</h2>
     <p>Note : overwrite Mixins Here</p>
-    <button @click="increment">Increment By 10</button>
-    <button @click="decrement">Decrement By 10</button>
+    <button @click="incrementBy10">Increment By 10</button>
+    <button @click="decrementBy10">Decrement By 10</button>
     <p>Count: {{ count }}</p>
     <p>getCount [computed] {{ getCount }}</p>
   </div>
 </template>
 
 <script>
-import shared from '@/mixins/shared'
+import { useCounter } from '@/mixins/composition'
 export default {
   name: 'ComponentC',
-  mixins: [shared],
+  setup() {
+    const { count, increment, decrement, getCount } = useCounter()
+
+    return {
+      count,
+      increment,
+      decrement,
+      getCount
+    }
+  },
   methods: {
-    increment() {
+    incrementBy10() {
       this.count += 10
     },
-    decrement() {
+    decrementBy10() {
       this.count -= 10
     }
   }
