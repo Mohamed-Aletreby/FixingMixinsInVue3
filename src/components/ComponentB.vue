@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Component B</h2>
+    <h2>Component B | fixMixin</h2>
     <button @click="increment">Increment</button>
     <button @click="decrement">Decrement</button>
     <p>Count: {{ count }}</p>
@@ -12,15 +12,21 @@
 </template>
 
 <script>
-import shared from '@/mixins/shared'
+import { useCounter } from '@/mixins/composition'
 import ComponentC from './ComponentC.vue'
 export default {
   name: 'ComponentB',
-  mixins: [shared],
-  data() {
-    return {}
-  },
-  components: { ComponentC }
+  components: { ComponentC },
+  setup() {
+    const { count, increment, decrement, getCount } = useCounter()
+
+    return {
+      count,
+      increment,
+      decrement,
+      getCount
+    }
+  }
 }
 </script>
 

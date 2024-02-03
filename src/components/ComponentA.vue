@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h2>Component A</h2>
-    <p>Note : overwrite Mixins Here / data => count :10</p>
+    <h2>Component A | fixMixin</h2>
+    <p>Note : overwrite Mixins Here / data => fixingUsed :"Composition"</p>
+    <p>{{ fixingUsed }}</p>
     <button @click="increment">Increment</button>
     <button @click="decrement">Decrement</button>
     <p>Count: {{ count }}</p>
@@ -10,15 +11,24 @@
 </template>
 
 <script>
-import shared from '@/mixins/shared'
+import { useCounter } from '@/mixins/composition'
 export default {
   name: 'ComponentA',
-  data() {
+  setup() {
+    const { count, increment, decrement, getCount } = useCounter()
+
     return {
-      count: 10
+      count,
+      increment,
+      decrement,
+      getCount
     }
   },
-  mixins: [shared]
+  data() {
+    return {
+      fixingUsed: 'Composition'
+    }
+  }
 }
 </script>
 
